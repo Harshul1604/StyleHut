@@ -1,0 +1,137 @@
+{% extends 'index.html' %}
+    {% block title %}
+    <title>StyleHut - Checkout</title>
+    {% endblock %}
+
+    {% block body %}
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Check Out</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.html">Home</a>
+                            <a href="./shop.html">Shop</a>
+                            <span>Check Out</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="/order/{{data.id}}/" method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
+                            here</a> to enter your code</h6>
+                            <h6 class="checkout__title">Billing Details</h6>
+                            <div class="row">
+                               
+                            <table class="table table-bordered table-resposive">
+                                <div class="col-lg-6">
+                                    <tr>
+                                        <th>Name :</th>
+                                        <td>{{data.name}}</td>
+                                    </tr>
+                                </div>
+                                <div class="col-lg-6">
+                                    <tr>
+                                        <th>User Name :</th>
+                                        <td>{{data.username}}</td>
+                                    </tr>
+                                </div>
+                                <tr>
+                                    <th>Email Address</th>
+                                    <td>{{data.email}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number</th>
+                                    <td>{{data.phone}}</td>
+                                </tr>
+                                <var>
+                                    <tr>
+                                        <th>Address Line 1</th>
+                                        <td>{{data.addressline1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address Line 2</th>
+                                        <td>{{data.addressline2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address Line 3</th>
+                                        <td>{{data.addressline3}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>PIN</th>
+                                        <td>{{data.pin}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>City</th>
+                                        <td>{{data.city}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>State</th>
+                                        <td>{{data.state}}</td>
+                                    </tr>
+
+
+                            </table>
+                            <tr>
+                                <td colspan="2"><a href="/update-profile/" class="btn btn-primary btn-sm w-100">Update
+                                        Profile</a></td>
+                            </tr>
+                         
+                            </div>
+                           
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4 class="order__title">Your order</h4>
+                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <ul class="checkout__total__products">
+                                    {% for value in request.session.cart.values %}
+                                    <li>{{value.name}}({{value.price}}*{{value.qty}})<span>&#8377; {{value.total}}</span></li>
+                                    {% endfor %}
+                                    
+                                </ul>
+                                <ul class="checkout__total__all">
+                                    
+                                    <li>Total <span>&#8377; {{request.session.total}}</span></li>
+                                    <li>Shipping<span>&#8377; {{request.session.shipping}}</span></li>
+                                    <li>Final Amount<span>&#8377; {{request.session.final}}</span></li>
+                                </ul>
+                               
+                                <div class="checkout__input__checkbox">
+                                    <tr>
+                                        <th>Payment Mode</th>
+                                        <br>
+                                        <td>
+                                            <select name="mode" class="form-select">
+                                                <option value="COD">COD</option>
+                                                <option value="Net Banking">Net Banking/Card/UPI</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                </div>
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+
+    

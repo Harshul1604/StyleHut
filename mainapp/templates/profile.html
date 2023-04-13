@@ -1,0 +1,151 @@
+{% extends 'index.html' %}
+{% load mytags %}
+{% block title %}
+<title>StyleHut | Contact</title>
+{% endblock%}
+{% block body %}
+<div class="container fluid">
+    <div class="row">
+        <div class="col-md-6 col-12">
+            {% if data.pic %}
+            <img src="{{data.pic.url}}" style="height: 550px;" width="100%" alt="">
+            {% else %}
+            <img src="/static/img/noimage.png" style="height: 550px;" width="100%" alt="">
+            {% endif %}
+        </div>
+        <div class="col-md-6 col-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Name</th>
+                    <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                    <th>User Name</th>
+                    <td>{{data.username}}</td>
+                </tr>
+                <tr>
+                    <th>Email Address</th>
+                    <td>{{data.email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>{{data.phone}}</td>
+                </tr>
+                <var>
+                    <tr>
+                        <th>Address Line 1</th>
+                        <td>{{data.addressline1}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address Line 2</th>
+                        <td>{{data.addressline2}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address Line 3</th>
+                        <td>{{data.addressline3}}</td>
+                    </tr>
+                    <tr>
+                        <th>PIN</th>
+                        <td>{{data.pin}}</td>
+                    </tr>
+                    <tr>
+                        <th>City</th>
+                        <td>{{data.city}}</td>
+                    </tr>
+                    <tr>
+                        <th>State</th>
+                        <td>{{data.state}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><a href="/update-profile/" class="btn btn-primary btn-sm w-100">Update
+                                Profile</a></td>
+                    </tr>
+            </table>
+        </div>
+        <div class="col">
+            <h5 class="bg-dark text-light text-center p-2 col">Order History Section</h5>
+
+        </div>
+        
+        <br>
+        <br>
+        {% for item in orders %}
+        <div class="d-flex">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="table responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th>Checkout Id</th>
+                            <td>{{item.id}}</td>
+                        </tr>
+                        <tr>
+                            <th>Payment Mode</th>
+                            <td>{{item.paymentmode|paymentMode}}</td>
+                        </tr>
+                        <tr>
+                            <th>Payment Status</th>
+                            <td>{{item.paymentstatus|paymentStatus}}</td>
+                        </tr>
+                        <tr>
+                            <th>Order Status</th>
+                            <td>{{item.orderstatus|orderStatus}}</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td>&#8377;{{item.total}}</td>
+                        </tr>
+                        <tr>
+                            <th>Shipping</th>
+                            <td>&#8377;{{item.shipping}}</td>
+                        </tr>
+                        <tr>
+                            <th>Final</th>
+                            <td>&#8377;{{item.final}}</td>
+                        </tr>
+                        {% if item.rppid%}
+                        <tr>
+                            <th>Razor Pay Payment Id</th>
+                            <td>{{item.rppid}}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    
+                </div>
+            </div>
+            <table class="table table-bordered table-striped table-hover">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Maincategory</th>
+                    <th>Subcategory</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                    <th>QTY</th>
+                    <th>Total</th>
+                </tr>
+                {% for i in item.id|checkoutProducts %}
+                <tr>
+                    <td><img src={{i.pic}} width="80px" height="60px" class="rounded" alt=""></td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.maincategory}}</td>
+                    <td>{{i.subcategory}}</td>
+                    <td>{{i.brand}}</td>
+                    <td>{{i.color}}</td>
+                    <td>{{i.size}}</td>
+                    <td>&#8377;{{i.price}}</td>
+                    <td>{{i.qty}}</td>
+                    <td>&#8377;{{i.total}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+           
+            
+        </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+{% endblock %}
